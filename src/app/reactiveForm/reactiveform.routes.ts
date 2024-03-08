@@ -1,0 +1,17 @@
+import { Routes } from '@angular/router';
+
+import { LayoutComponent } from './pages/layout/layout.component';
+import { BasicComponent } from './pages/basicPage/basic.component';
+import { DynamicComponent } from './pages/dynamicPage/dynamic.component';
+import { SwitchespageComponent } from './pages/switchespage/switchespage.component';
+
+export const REACTIVEFORM_ROUTES: Routes = [
+   { path: '', component: LayoutComponent,
+    children: [
+      { path: 'basic', component: BasicComponent},
+      { path: 'dynamic', component: DynamicComponent},
+      { path: 'switches', component: SwitchespageComponent},
+      { path: '**', redirectTo: 'basic',  }
+    ]
+   },
+];

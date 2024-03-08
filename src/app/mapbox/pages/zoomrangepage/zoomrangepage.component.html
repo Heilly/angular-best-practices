@@ -1,0 +1,26 @@
+<div id='map' #map></div>
+
+<div class="w-60 px-2 fixed bottom-5 right-5 z-50 bg-white rounded-lg shadow-sm">
+  <div class="flex justify-between">
+    <button 
+    (click)="zoomOut()"
+    class="bg-blue-400 hover:bg-blue-600 px-2 py-1 rounded-md font-bold my-2 text-gray-200"> - </button>
+    <input type="range"
+      class="form-range px-2"
+      min="-2"
+      max="18"
+      [value]="zoom()"
+      #zoomInput
+      (input)="zoomChanged( zoomInput.value)"
+    >
+    <button 
+    (click)="zoomIn()"
+    class="bg-blue-400 hover:bg-blue-600 px-2 py-1 rounded-md font-bold my-2 text-gray-200"> + </button>
+  </div>
+  <span class="text-sm text-slate-600">
+    Zoom: {{ zoom() | number:'2.2-2' }} <br>
+    Lng, Lat: {{ lngLat?.lng | number: '1.2-2' }}, {{ lngLat?.lat | number: '1.2-2' }}
+  </span>
+
+</div>
+

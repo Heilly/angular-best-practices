@@ -1,0 +1,67 @@
+  
+<div class="mx-auto ">
+    <aside class="group/sidebar shrink-0 grow" id="sidenav-main">
+
+
+        <div class="hidden border-b border-dashed lg:block dark:border-neutral-700/70 border-neutral-200"></div>
+
+        <div class="flex items-center justify-center px-2 py-2 md:py-5 md:px-8
+        shadow-sm">
+            <div class="flex items-center">
+            <div class="">
+              <div class="flex justify-center mb-2">
+                <span class="inline-block bg-gray-800 rounded-full p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+                </span>
+            </div>
+            <h2 class="text-md font-semibold text-center mb-1"> {{userName}} </h2>
+            </div>
+            
+            </div>
+        </div>
+
+        <div class="hidden border-b border-dashed lg:block dark:border-neutral-700/70 border-neutral-200"></div>
+
+        <div class="relative p-3 my-5 overflow-auto">
+            <div class="flex flex-col w-full font-medium">
+              <!-- MenuSideBar -->
+              @for (item of sharedService.menuItemSidebar(); track $index) {
+              <div 
+              routerLinkActive="text-white bg-gray-800 mr-3" 
+              [routerLink]="item.router" 
+              class="flex rounded-xl p-2  hover:cursor-pointer mx-auto md:mx-0">
+                <div class="flex-none hover:cursor-pointer">
+                  <div class="relative">
+                    <span class="material-symbols-outlined ">
+                      {{item.icon}}
+                    </span>
+                  </div>
+                </div>
+                
+              <a class="flex-grow text-[1rem] px-2  hidden md:flex text-white">
+                {{item.name}}
+              </a>
+                
+                
+              </div>
+
+            }
+
+      </div>
+    </div>
+    
+  </aside>
+          <!-- Botón en la parte inferior del sidebar -->
+          <div class="absolute bottom-4 right-4">
+            <div class="container-login100-form-btn">
+              <div class="wrap-login100-form-btn">
+                  <div class="login100-form-bgbtn"></div>
+                  <button class="login100-form-btn"
+                    (click)="authService.logout()">
+                      Logout
+                  </button>
+              </div>
+          </div>
+        </div>
+</div>
+        

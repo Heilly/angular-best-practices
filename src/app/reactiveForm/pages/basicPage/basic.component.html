@@ -1,0 +1,61 @@
+<div class="my-6">
+  <div class="grid sm:grid-cols-2 items-center gap-16 p-8 mx-auto max-w-4xl bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md text-[#333] font-[sans-serif]">
+      <div>
+          <h1 class="text-3xl font-normal">Validaciones</h1>
+          <div class="row">
+            <div class="col">
+        
+                <p><span class="font-semibold"> Valid:</span> {{ myBasicForm.valid| json }}</p><br>
+        
+                <p><span class="font-semibold"> Pristine:</span> {{ myBasicForm.pristine| json }}</p><br>
+        
+                <p><span class="font-semibold"> Touched:</span> {{ myBasicForm.touched| json }}</p><br>
+        
+                <p><span class="font-semibold"> Value :</span> {{ myBasicForm.value| json }}</p><br>
+        
+                <p><span class="font-semibold"> Precio - Errors</span></p>
+                <pre>{{ myBasicForm.controls['inStorage'].errors | json }}</pre>
+        
+                <p><span class="font-semibold"> Name - Errors</span></p>
+                <pre>{{ myBasicForm.controls['name'].errors | json }}</pre>
+            </div>
+        </div>
+      </div>
+    
+      <form 
+      [formGroup]="myBasicForm"
+      (ngSubmit)="onSubmit()"
+       class="ml-auto space-y-4">
+          <input type='text' name ="name" placeholder='Nombre'
+              class="w-full rounded-md py-2.5 px-4 border-2 text-sm shadow-lg text-gray-800"
+              formControlName="name" />
+              @if ( isValidField('name') ) {
+                <span class="text-sm text-red-600">
+                  {{ getFieldError('name') }}
+                </span> 
+              }
+          <input type='number' 
+                 name='price'
+                 placeholder='price'
+              class="w-full rounded-md py-2.5 px-4 border text-sm shadow-lg text-gray-800"
+              formControlName="price" />
+              @if ( isValidField('price') ) {
+                <span class="text-sm text-red-600">
+                  {{ getFieldError('price') }}
+                </span> 
+              }
+              
+          <input type='number' placeholder='inStorage' name='inStorage'
+          class="w-full rounded-md py-2.5 px-4 border text-sm shadow-lg text-gray-800"
+              formControlName="inStorage" />
+              @if ( isValidField('inStorage') ) {
+                <span class="text-sm text-red-600">
+                  {{ getFieldError('inStorage') }}
+                </span> 
+              }
+          <button type='button' type="submit"
+          [ngClass]="{'myBasicForm.invalid' : 'inactive' }"
+              class="text-white bg-gradient-to-tr from-blue-500 to-purple-500 hover:bg-blue-600 font-semibold rounded-md text-sm px-4 py-2.5 w-full">Enviar</button>
+      </form>
+  </div>
+</div>

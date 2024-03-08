@@ -1,0 +1,70 @@
+<div class="rounded-md shadow-md flex flex-col" style=" height: 100vh;">
+
+<div class="flex-auto flex-wrap items-start m-5">
+  
+  <form class="max-w-sm" [formGroup]="mySelect">
+    <label for="region" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selectores anidados</label>
+    <select id="region" 
+            formControlName="region"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option value="">Choose a country</option>
+      @for (region of regions(); track $index) {
+        <option [value]="region"> {{region}} </option>
+      }
+    </select>
+
+    <br>
+    @if ( countries().length > 0 ) {
+      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccionar País</label>
+    <select id="countries" 
+            formControlName="country"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option value="">Choose a country</option>
+      @for (country of countries(); track $index) {
+        <option [value]="country.cca3"> {{country.name}} </option>
+      }
+    </select>
+    }
+
+    <br>
+    @if ( borders().length > 0 ) {
+      <label for="border" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccionar frontera</label>
+      <select id="border" 
+              formControlName="border"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="">Choose a border</option>
+        @for (border of borders(); track $index) {
+          <option [value]="border.cca3"> {{border.name}} </option>
+        }
+      </select>
+      } @else if( countries().length > 0 && mySelect.get('country')?.value !== '')  {
+        <p class=" text-red-600"> No tiene fronteras</p>
+      }
+  </form>
+
+  @if ( frontera() ) {
+  <div class=" my-4 grid items-center gap-4 p-5 mx-auto max-w-4xl bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md text-[#333] font-[sans-serif]">
+    <div class="flex">
+      <div><img [src]="frontera()?.flags?.png" alt="" class="w-28 rounded-md shadow-md"></div>
+      <div class="mx-7">
+        <h2>Region:  </h2> <p class="text-base px-3">{{ frontera()?.region }}</p>
+        <h2>Pais: </h2><p class="text-base px-3">{{ frontera()?.name?.official }} </p>
+        <h2>Capital:  </h2> <p class="text-base px-3">{{ frontera()?.capital }}</p>
+      </div>
+    </div>
+    <div>
+      <h2>Población: </h2> 
+      <p class="text-base px-3"> {{frontera()?.population | number}} </p>
+      
+      <h2>Lenguas oficiales: </h2> 
+      @for (item of frontera()?.languages | keyvalue; track $index) {
+        <span class="text-base mx-3 px-3 shadow-md"> {{ item.value }} </span>
+      }
+      
+    </div>
+  
+  </div>
+  }
+</div>
+</div>
+

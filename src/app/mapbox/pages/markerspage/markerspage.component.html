@@ -1,0 +1,25 @@
+<div id="map" #map> </div>
+
+
+<div class="fixed right-2 top-2 bg-white shadow-lg rounded-lg w-auto">
+  <ul class="divide-y divide-gray-200 ">
+    @for (colorMarker of markers; track colorMarker; let idx = $index ) {
+    <li 
+      (dblclick)="deleteMarker(idx)"
+      (click)="flyTo(colorMarker.marker)"
+      class="p-3 flex justify-between items-center user-card
+              cursor-pointer">
+      <span class="p-2 rounded-lg w-2 h-2 bg-slate-700 mr-1"
+      [ngStyle]="{'background-color': colorMarker.color}"></span>
+      Marker {{ idx +1 }}
+      
+    </li>
+  }
+  </ul>
+</div>
+
+<button (click)="createMarket()"
+class="fixed bottom-4 right-4 text-sm text-white font-normal py-2 px-4 rounded-md bg-gradient-to-r from-red-600 to-red-800 
+border  transform hover:scale-105 hover:border-white transition-transform duration-3000 ease-in-out">
+  + Agregar Marcador
+</button>

@@ -1,0 +1,39 @@
+
+<div class="flex">
+  <div class=" w-28 md:w-52"></div>
+  <div class="w-3/4 flex flex-col flex-wrap align-items-end">
+    <div class="row-auto mt-3 justify-end">
+      <div class="col-span-2">
+        <div class="col-auto">
+          <h3 class="font-medium text-xl pb-1">Listado de propiedades</h3>
+          <hr>
+  
+        </div>
+      </div>
+    </div>
+  
+    <!-- House -->
+    <div class="flex flex-wrap">
+      @for (itemHouse of houses; track $index) {
+        <div class="block rounded-lg bg-white w-52 md:w-72 m-4 shadow-md">
+          <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init data-te-ripple-color="light">
+            <maps-minimaps [lngLat]="itemHouse.lngLat"/>
+            
+            
+          </div>
+  
+          <div class="p-2">
+            <div class="flex justify-between">
+              <h5 class="mb-2 text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50">
+                {{ itemHouse.title }}
+              </h5>
+            </div>
+            <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+              {{ itemHouse.description }}
+            </p>
+            
+          </div>
+        </div>
+      }
+    </div>
+  </div></div>
