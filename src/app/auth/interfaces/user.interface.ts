@@ -7,3 +7,7 @@ export interface User {
     roles:    string[];
     __v:      number;
 }
+
+export interface Roles {
+    rol: string
+}

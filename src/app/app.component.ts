@@ -24,7 +24,7 @@ export class AppComponent {
     }
 
     return true;
-  });*/
+  });
 
   //Variable para determinar si esta autenticado o no
   public authStatusChangedEffect = effect(() => {
@@ -43,5 +43,5 @@ export class AppComponent {
         return;
 
     } });
-
+*/
 }

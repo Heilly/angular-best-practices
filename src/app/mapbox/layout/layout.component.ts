@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Data, RouterModule } from '@angular/router';
 import { MapboxserviceService } from '../services/mapboxservice.service';
 import { NavbarSharedComponent } from '../../shared/components/navbar/navbar.component';
 
@@ -11,8 +11,15 @@ import { NavbarSharedComponent } from '../../shared/components/navbar/navbar.com
   imports: [CommonModule, RouterModule,
             NavbarSharedComponent],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
 
   public mapboxService = inject( MapboxserviceService );
+  private activatedRoute = inject( ActivatedRoute );
+  @Output() dataEmit = new EventEmitter<Data>();
+
+ngOnInit(): void {
+      const data = this.activatedRoute.snapshot.data;
+      this.dataEmit.emit(data);
+  }
 
 }

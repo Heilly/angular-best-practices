@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { UserRegister } from '../../interfaces/register.interface';
 import Swal from 'sweetalert2';
 import { ValidatorserviceService } from '../../services/validatorservice.service';
+import { Passvalidator } from '../../validators/passvalidator/passvalidator.directive';
 
 @Component({
   selector: 'app-registerpage',
@@ -26,7 +27,7 @@ export class RegisterpageComponent {
                            Validators.pattern(this.validatorService.firstNameAndLastnamePattern) ] ],
     email: [ 'newheilly@gmail.com', [Validators.required, Validators.pattern(this.validatorService.emailPattern)] ],
     password: [ '123456', [Validators.required, Validators.minLength(6)] ],
-    repitpassword: [ '123456', [ Validators.required, Validators.minLength(6) ] ]
+    repitpassword: [ '123456', [ Validators.required, Validators.minLength(6), Passvalidator ] ]
   })
 
   onSubmit(){

@@ -9,6 +9,7 @@ export class ReactiveformserviceService {
     { name: 'Basic Form', router: '/dashboard/reactiveform/basic', icon: 'location_on', color: '#C73111'},
     { name: 'Dynamic Form', router: '/dashboard/reactiveform/dynamic', icon: 'zoom_in', color: '#429F19'},
     { name: 'Switches Form', router: '/dashboard/reactiveform/switches', icon: 'person_pin_circle', color: '#186888'},
+    { name: 'Product Form', router: '/dashboard/reactiveform/productform', icon: 'person_pin_circle', color: '#186888'},
   ]);
 
 isValidField( field: string, myForm?: FormGroup ){

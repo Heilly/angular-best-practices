@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReactiveformserviceService } from '../../services/reactiveformservice.service';
 import { config } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -11,13 +11,15 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
 })
-export class DynamicComponent {
+export class DynamicComponent implements OnInit {
   private fb = inject( FormBuilder );
   private reactiveFormService = inject( ReactiveformserviceService );
 
   public myDynamicForm = this.fb.group({
     name: [ '', [Validators.required, Validators.minLength(3)] ],
-    favorites: this.fb.array([])
+    favorites: this.fb.array([
+      ['a'], ['b']
+    ])
   });
 
   public newFavorite = this.fb.control( '', [ Validators.required ] );
@@ -26,6 +28,10 @@ export class DynamicComponent {
     return (this.myDynamicForm.get('favorites') as FormArray);
   }
 
+  ngOnInit(): void {
+  }
+
+  
   onSubmit(){
 
     if(this.myDynamicForm.invalid) {
@@ -39,7 +45,7 @@ export class DynamicComponent {
     }
     this.myDynamicForm.reset();
     this.newFavorite.reset();
-    this.myDynamicForm.controls['favorites'] = this.fb.array([])
+    //this.myDynamicForm.controls['favorites'] = this.fb.array([])
   }
 
   isValidField( field: string ){
@@ -66,5 +72,7 @@ export class DynamicComponent {
     this.favoriteCountry.removeAt(index);
     //console.log(this.myDynamicForm.get('favorites')?.value);
   }
+
+
 
 }

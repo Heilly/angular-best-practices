@@ -1,0 +1,242 @@
+<div class="max-w-md mx-auto">
+  <form
+    [formGroup]="myForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+  >
+    <!-- Nombre del Producto -->
+    <div class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="nombreProducto"
+      >
+        Nombre del Producto
+      </label>
+      <input formControlName="name"
+        class="
+          shadow
+          appearance-none
+          border
+          rounded
+          w-full
+          py-2
+          px-3
+          text-gray-700
+          leading-tight
+          focus:outline-none focus:shadow-outline
+        "
+        type="text"
+        placeholder="Nombre del Producto"
+      />
+      @if (isValidField('name')) {
+        <p class="text-red-500"> {{ getFieldError('name') }} </p>
+      }
+    </div>
+
+    <!-- Precio del Producto -->
+    <div class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="precioProducto"
+      >
+        Precio del Producto
+      </label>
+      <input formControlName="price" name="price"
+        class="
+          shadow
+          appearance-none
+          border
+          rounded
+          w-full
+          py-2
+          px-3
+          text-gray-700
+          leading-tight
+          focus:outline-none focus:shadow-outline
+        "
+        type="number"
+        placeholder="Precio del Producto"
+      />
+      @if (isValidField('price')) {
+        <p class="text-red-500"> {{ getFieldError('price') }} </p>
+      }
+    </div>
+
+    <!-- Descuento, Si o No -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        Descuento
+      </label>
+      <label class="inline-flex items-center">
+        <input formControlName="offer"
+          type="radio"
+          class="form-radio text-indigo-600 h-5 w-5"
+          name="offer"
+          value="si"
+        />
+        <span class="ml-2">Si</span>
+      </label>
+      <label class="inline-flex items-center ml-6">
+        <input formControlName="offer"
+          type="radio"
+          class="form-radio text-indigo-600 h-5 w-5"
+          name="offer"
+          value="no"
+        />
+        <span class="ml-2">No</span>
+      </label>
+      <div>
+        @if (isValidField('offer')) {
+          <p class="text-red-500"> {{ getFieldError('offer') }} </p>
+        }
+      </div>
+    </div>
+    @if (myForm.get('offer')?.value === 'si') {
+      <input [formControl]="isOffer" name="isOffer"
+        class="
+          shadow
+          appearance-none
+          border
+          rounded
+          w-full
+          py-2
+          px-3
+          text-gray-700
+          leading-tight
+          focus:outline-none focus:shadow-outline
+        "
+        type="text"
+        placeholder="Valor del descuento"
+      />
+      <div>
+        @if (isValidField('isOffer')) {
+          <p class="text-red-500"> {{ getFieldError('isOffer') }} </p>
+        }
+      </div>
+    }
+
+    <!-- Categoria -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="categoria">
+        Categoria
+      </label>
+      <div class="flex items-center">
+        <input [formControl]="newCategory"
+          class="
+            shadow
+            appearance-none
+            border
+            rounded
+            w-full
+            py-2
+            px-3
+            text-gray-700
+            leading-tight
+            focus:outline-none focus:shadow-outline
+          "
+          id="inputCategory"
+          type="text"
+          placeholder="Categoria"
+        />
+        <button
+          class="
+            bg-blue-500
+            hover:bg-blue-700
+            text-white
+            font-bold
+            py-2
+            px-4
+            ml-2
+            rounded
+            focus:outline-none focus:shadow-outline
+          "
+          type="button"
+        (click)="addCategory()">
+          Añadir
+        </button>
+      </div>
+      @if ( isValidField('categories') ) {
+        
+        <p class="text-red-500"> Añadir al menos una categoría</p>
+      } @else {
+        <div formArrayName="categories">
+        @for (item of categoriesArray.controls; track $index) {
+          <div>{{item.value}}</div>
+        }
+      </div>
+      }
+      
+    </div>
+
+    <!-- Ticket Regalo -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        Ticket Regalo
+      </label>
+      <label class="inline-flex items-center">
+        <input formControlName="gifTicket" name="gifTicket"
+          name="gifTicket"
+          type="checkbox"
+          class="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span class="ml-2">Sí</span>
+      </label>
+    </div>
+
+    <!-- Tipo de envio -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="tipoEnvio">
+        Tipo de envio
+      </label>
+      <select
+        name="shipping"
+        class="
+          shadow
+          appearance-none
+          border
+          rounded
+          w-full
+          py-2
+          px-3
+          text-gray-700
+          leading-tight
+          focus:outline-none focus:shadow-outline
+        "
+        id="tipoEnvio" formControlName="shipping" >
+
+        <option selected value="" >-- Seleccione Metodo de Envio --</option>
+        @for (item of shippingSignal() ; track $index;  ) {
+          <option [value]="item.id"> {{item.id}} - {{ item.metodo }} - {{ item.price }}</option>
+        }
+
+      </select>
+      @if (isValidField('shipping')) {
+        <p class="text-red-500"> {{ getFieldError('shipping') }} </p>
+      }
+    </div>
+
+    <div>
+      <h2 class="xl"> Precio total: </h2> {{precioTotal()}}
+
+    </div>
+
+    <!-- Botón Submit -->
+    <div class="flex items-center justify-between">
+      <button
+        class="
+          bg-blue-500
+          hover:bg-blue-700
+          text-white
+          font-bold
+          py-2
+          px-4
+          rounded
+          focus:outline-none focus:shadow-outline
+        "
+        type="submit"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>
